@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+  database:
+    image: mongo
+    volumes:
+      - mongo:/data/db
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+
+volumes:
+  mongo:
