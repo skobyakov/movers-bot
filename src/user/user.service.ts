@@ -31,7 +31,7 @@ export class UserService {
           },
         },
       },
-      { upsert: true },
+      { upsert: true, returnDocument: 'after' },
     );
   }
 }
