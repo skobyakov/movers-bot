@@ -95,7 +95,7 @@ export class BotService {
       chat_id: chatId,
       text,
       reply_markup: {
-        keyboard: _chunk(options, 2).map((row) =>
+        keyboard: _chunk(options, 1).map((row) =>
           row.map((item) => ({ text: item })),
         ),
       },
