@@ -1,12 +1,10 @@
-export interface User {
-  id: number;
-  username: string;
-  firstName?: string;
-  lastName?: string;
-}
+import { UserInfo } from '../user/user.types';
 
 export interface Update {
-  user: User;
+  user: UserInfo;
   messageText?: string;
   command?: string;
+  messageId: number;
+  chatId: number;
+  date: number;
 }
