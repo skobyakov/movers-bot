@@ -14,10 +14,10 @@ services:
     image: mongo:4
     volumes:
       - mongo:/data/db
-    ports:
-      - 27017:27017
     networks:
       - movers
+    env_file:
+      - .env
     restart: unless-stopped
 
 volumes:
