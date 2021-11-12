@@ -2,5 +2,26 @@ version: '3.8'
 
 services:
   backend:
+    build:
+      context: .
     ports:
       - 443:3000
+    networks:
+      - movers
+    depends_on:
+      - database
+  database:
+    image: mongo:4
+    volumes:
+      - mongo:/data/db
+    networks:
+      - movers
+    env_file:
+      - .env
+    restart: unless-stopped
+
+volumes:
+  mongo:
+
+networks:
+  movers:

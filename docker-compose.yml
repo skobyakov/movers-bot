@@ -16,6 +16,8 @@ services:
       - mongo:/data/db
     networks:
       - movers
+    ports:
+      - 27017:27017
     env_file:
       - .env
     restart: unless-stopped
