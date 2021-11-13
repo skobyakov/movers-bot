@@ -1,34 +1,38 @@
-import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
-import { QuizQuestionEntity, QuizResultEntity } from './quiz.types';
+import { Schema, Document, Types } from 'mongoose';
 
-export type QuizDocument = Quiz & mongoose.Document;
+export const QuizSchema = new Schema({
+  title: { type: String, required: true },
+  welcomeMessage: { type: String, required: true },
+  questions: [
+    {
+      text: { type: String, required: true },
+      answers: [
+        {
+          text: { type: String, required: true },
+          resultId: { type: Schema.Types.ObjectId, required: true },
+        },
+      ],
+    },
+  ],
+  results: [
+    {
+      text: { type: String },
+    },
+  ],
+});
 
-@Schema()
-export class Quiz {
-  @Prop({ required: true })
+export interface QuizDocument extends Document {
   title: string;
-
-  @Prop({ required: true })
   welcomeMessage: string;
-
-  @Prop(
-    raw([
-      {
-        text: { type: String, required: true },
-        answers: [
-          {
-            text: { type: String, required: true },
-            resultId: { type: mongoose.Schema.Types.ObjectId, required: true },
-          },
-        ],
-      },
-    ]),
-  )
-  questions: QuizQuestionEntity[];
-
-  @Prop(raw([{ text: { type: String } }]))
-  results: QuizResultEntity[];
+  questions: {
+    text: string;
+    answers: {
+      text: string;
+      resultId: Types.ObjectId;
+    }[];
+  }[];
+  results: {
+    _id: Types.ObjectId;
+    text: string;
+  }[];
 }
-
-export const QuizSchema = SchemaFactory.createForClass(Quiz);

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UpdateDTO } from '../bot/bot.dto';
 import { ConfigService } from '@nestjs/config';
@@ -18,5 +18,10 @@ export class AppController {
     if (this.configService.get<string>('TG_BOT_API_KEY') === key) {
       await this.appService.onUpdate(body);
     }
+  }
+
+  @Get('health')
+  health(): string {
+    return 'OK';
   }
 }
